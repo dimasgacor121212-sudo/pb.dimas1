@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPOTITUT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 64 64"><defs><linearGradient id="lgg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8f03c"/><stop offset=".55" stop-color="#25d0ee"/><stop offset="1" stop-color="#ff4d9d"/></linearGradient></defs><rect width="64" height="64" rx="18" fill="url(#lgg)"/><path d="M24 44V21l22-5v23" fill="none" stroke="#06142e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="45" r="6.5" fill="#06142e"/><circle cx="41" cy="40" r="6.5" fill="#06142e"/><path d="M8 30q4-6 0-12M56 30q-4-6 0-12" fill="none" stroke="#06142e" stroke-width="3" stroke-linecap="round" opacity=".5"/></symbol></svg>
+<div class="bg" aria-hidden="true"><svg class="wave" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 120C240 40 480 200 720 120S1200 40 1440 120V200H0Z" fill="rgba(37,208,238,.14)"/><path d="M0 150C300 90 520 210 800 140S1250 90 1440 150V200H0Z" fill="rgba(255,77,157,.16)"/></svg></div>
+<main>
+  <div class="brand"><svg class="lg"><use href="#logo"/></svg><b>SPOTITUT</b></div>
+
+  <!-- Halaman 1: Login -->
+  <section id="login" class="page active">
+    <div class="card login-card">
+      <svg class="lg xl" aria-label="Logo SPOTITUT"><use href="#logo"/></svg>
+      <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <h1 class="logo">SPOTITUT</h1>
+      <p class="sub">Putar lagumu sendiri, lengkap dengan lirik yang berjalan.</p>
+      <form id="loginForm" novalidate>
+        <label for="user">Nama pengguna</label>
+        <input id="user" autocomplete="username" placeholder="contoh: budi_musik">
+        <label for="pass">Kata sandi</label>
+        <input id="pass" type="password" autocomplete="current-password" placeholder="minimal 4 karakter">
+        <p id="err" class="err" role="alert"></p>
+        <button class="btn big" type="submit">Lanjut ›</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Halaman 2: Pilih mode -->
+  <section id="menu" class="page">
+    <div class="card wide">
+      <h2 id="hello">Halo!</h2>
+      <p class="sub">Pilih cara kamu menikmati musik.</p>
+      <div class="modes">
+        <button class="mode" data-mode="karaoke"><span class="ico">🎤</span><b>Karaoke</b><small>Lirik besar yang terisi warna mengikuti lagu.</small></button>
+        <button class="mode" data-mode="listen"><span class="ico">🎧</span><b>Dengar musik</b><small>Putar file audiomu dengan foto album dan lirik.</small></button>
+        <button class="mode" data-mode="podcast"><span class="ico">🎙️</span><b>Podcast</b><small>Putar episode podcast, unggah sendiri atau pakai contoh.</small></button>
+      </div>
+      <div class="nav">
+        <button id="menuBack" class="btn ghost">‹ Kembali</button>
+        <button id="menuNext" class="btn" disabled>Lanjut ›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Halaman 3: Pemutar -->
+  <section id="music" class="page">
+    <header class="bar">
+      <button id="backBtn" class="btn ghost">‹ Kembali</button>
+      <h2 id="musicTitle"></h2>
+      <button id="nextBtn" class="btn" title="Lagu berikutnya">Lanjut ›</button>
+    </header>
+    <div class="app">
+      <aside class="side">
+        <div class="side-top">
+          <label for="genre" id="genreLbl">Genre</label>
+          <select id="genre"></select>
+          <button id="addBtn" class="btn sm">＋ Tambah</button>
+        </div>
+        <ol id="list" class="list"></ol>
+      </aside>
+      <div class="now">
+        <div class="head">
+          <div class="art" id="art"></div>
+          <div class="info">
+            <h3 id="sTitle"></h3><p id="sArtist"></p>
+            <div class="tools">
+              <button id="findBtn" class="btn ghost sm">Cari lirik</button>
+              <button id="lyrBtn" class="btn ghost sm">Edit lirik</button>
+              <button id="syncBtn" class="btn ghost sm">Sinkron lirik</button>
+            </div>
+          </div>
+        </div>
+        <div id="syncBar" class="syncbar" hidden>
+          <span>Ketuk <b>Tandai</b> tepat saat baris yang menyala dinyanyikan.</span>
+          <button id="tapBtn" class="btn sm">Tandai</button>
+          <button id="syncCancel" class="btn ghost sm">Batal</button>
+        </div>
+        <div id="lyrics" class="lyrics" aria-live="polite"></div>
+      </div>
+    </div>
+    <footer class="player">
+      <div class="pl-info"><div class="th" id="thumb"></div><div class="meta"><b id="pTitle"></b><small id="pArtist"></small></div></div>
+      <div class="pl-mid">
+        <div class="pl-btns">
+          <button id="prevBtn" class="ib" aria-label="Sebelumnya">⏮</button>
+          <button id="playBtn" class="ib play" aria-label="Putar atau jeda">▶</button>
+          <button id="nxtBtn" class="ib" aria-label="Berikutnya">⏭</button>
+        </div>
+        <div class="seekrow"><span id="tCur">0:00</span><input id="seek" type="range" min="0" max="1000" value="0" aria-label="Posisi lagu"><span id="tDur">0:00</span></div>
+      </div>
+      <div class="pl-vol"><span aria-hidden="true">🔊</span><input id="vol" type="range" min="0" max="100" value="80" aria-label="Volume"></div>
+    </footer>
+  </section>
+</main>
+
+<dialog id="addDlg">
+  <h3 id="addHead">Tambah lagu</h3>
+  <p class="sub" id="addSub"></p>
+  <label for="fAudio">File audio (mp3, wav, m4a, ogg)</label>
+  <input id="fAudio" type="file" accept="audio/*">
+  <label for="fCover">Foto album (opsional)</label>
+  <input id="fCover" type="file" accept="image/*">
+  <label for="fTitle">Judul</label><input id="fTitle" placeholder="Kosongkan untuk memakai nama file">
+  <label for="fArtist">Artis</label><input id="fArtist">
+  <label for="fGenre">Genre atau kategori</label><input id="fGenre" list="gl" placeholder="Pop, Rock, Dangdut...">
+  <datalist id="gl"><option>Pop</option><option>Rock</option><option>Dangdut</option><option>Indie</option><option>Hip-hop</option><option>Religi</option><option>Elektronik</option><option>Edukasi</option><option>Kisah</option></datalist>
+  <label for="fLyr">Lirik (boleh berformat LRC: [01:23.50] baris lirik)</label>
+  <textarea id="fLyr" rows="6" placeholder="Tempel lirik di sini..."></textarea>
+  <label for="fLrc">atau muat file .lrc / .txt</label>
+  <input id="fLrc" type="file" accept=".lrc,.txt,text/plain">
+  <p id="addErr" class="err" role="alert"></p>
+  <div class="nav"><button id="addCancel" class="btn ghost">Batal</button><button id="addSave" class="btn">Simpan</button></div>
+</dialog>
+
+<dialog id="lyrDlg">
+  <h3>Lirik: <span id="lyrName"></span></h3>
+  <p class="sub">Satu baris per baris lagu. Pakai format LRC <code>[mm:ss.xx]</code> agar tepat waktu, atau pakai tombol Sinkron lirik.</p>
+  <textarea id="lyrArea" rows="10" placeholder="Tempel lirik di sini..."></textarea>
+  <label for="lyrFile">Muat file .lrc / .txt</label>
+  <input id="lyrFile" type="file" accept=".lrc,.txt,text/plain">
+  <div class="nav"><button id="lyrCancel" class="btn ghost">Batal</button><button id="lyrSave" class="btn">Simpan</button></div>
+</dialog>
+<script src="script.js"></script>
+</body>
+</html>
